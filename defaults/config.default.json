@@ -21,7 +21,7 @@
     	"timeout":1000,
         "enabled": true,
         "clusterForks": "auto",
-		"poolAddress":"Se4FFaA4n89epNPA7bXgzaFBup9a4wDABbYsEQXDWGiFNdbnwgmBoLgjXSX7ZHSnpCcie1uMmEZ7K2xaVbdsyxkc32AEBDr1p",
+		"poolAddress":"Se4EaQbQt9dWocr5RGWuRqdJcxaatTwydbfio8mBUNWuE5iYeZJzcHC3S5M3Jn5kBQdwB6w7kFE2yC6nrNtvXQ1E2oFPis9fF",
         "blockRefreshInterval": 500,
         "minerTimeout": 750,
         "sslCert": "./cert.pem",
@@ -91,13 +91,13 @@
         "denomination": 100
     },
 	"contributions":{
-		"Se4FFaA4n89epNPA7bXgzaFBup9a4wDABbYsEQXDWGiFNdbnwgmBoLgjXSX7ZHSnpCcie1uMmEZ7K2xaVbdsyxkc32AEBDr1p": {
+		"Se2ef2vWfM5je9M9p9RXnb3YG1Bxm7eLJb4np1TdJmbTfo5VAo43g2EFikEG7wenV2BihjyWmoDL1efXafFfDJoE2GcxJtvH7": {
 			"percent":0.4,
-			"desc":"developer contributions",
+			"desc":"pool contributions",
 			"hidden":false
 		},
 		"Se3dRf8ZTUXKYivaTFU4KYczPcmMcwPZWEQ5HZmj3RRviFJ3w1mNhtgCWkn6VsnQcMBX1hyCUjZVuSo8X7yJTSYj1joP84WoT": {
-			"percent":0.4,
+			"percent":0.1,
 			"desc":"team contributions",
 			"hidden":false
 		}

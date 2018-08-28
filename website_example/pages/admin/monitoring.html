@@ -130,8 +130,8 @@ function renderLogInfo(promptPassword) {
             docCookies.setItem('password', password, Infinity);
             renderTemplate(monitoringInfoParse(data), '#monitoringInfo', '#monitoringInfoView');
 	    
-            $('#daemonStatus').addClass(data['monitoring'].daemon.lastStatus == 'ok' ? 'text-success' : 'text-danger');
-            $('#walletStatus').addClass(data['monitoring'].wallet.lastStatus == 'ok' ? 'text-success' : 'text-danger');
+            $('#daemonStatus').addClass(data.monitoring.daemon && data.monitoring.daemon.lastStatus == 'ok' ? 'text-success' : 'text-danger');
+            $('#walletStatus').addClass(data.monitoring.wallet && data.monitoring.wallet.lastStatus == 'ok' ? 'text-success' : 'text-danger');
 
             $('#logTable th.sort').on('click', sortTable);
         },

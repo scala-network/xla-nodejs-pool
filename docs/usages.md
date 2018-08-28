@@ -7,6 +7,8 @@
   * [Customizing your website](#5-customize-your-website)
   * [SSL](#ssl)
   * [Upgrading](#upgrading)
+  * [JSON-RPC](#json-rpc)
+  * [Monitoring](#monitoring)
 
 
 Usage
@@ -221,7 +223,7 @@ the Node.js modules, and any config files that may have been changed.
 * Run `npm update` to force updating/reinstalling of the dependencies.
 * Compare your `config.json` to the latest example ones in this repo or the ones in the setup instructions where each config field is explained. You may need to modify or add any new changes.
 
-### JSON-RPC Commands from CLI
+#### JSON-RPC
 
 Documentation for JSON-RPC commands can be found here:
 * Daemon https://wiki.bytecoin.org/wiki/JSON_RPC_API
@@ -235,7 +237,7 @@ curl 127.0.0.1:20189/json_rpc -d '{"method":"getblockheaderbyheight","params":{"
 ```
 
 
-### Monitoring Your Pool
+#### Monitoring
 
 * To inspect and make changes to redis I suggest using [redis-commander](https://github.com/joeferner/redis-commander)
 * To monitor server load for CPU, Network, IO, etc - I suggest using [Netdata](https://github.com/firehol/netdata)

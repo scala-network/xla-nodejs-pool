@@ -8,8 +8,8 @@
                 <span class="fa fa-cubes"></span>
             </div>
             <div class="content">
-                <div class="text">Total Blocks Mined</div>
-                <div class="value"><span id="blocksTotal"></span> <span class="smallText">(Last: <span id="lastBlockFound"></span>)</span></div>
+                <div class="text"><span tkey="blocksTotal">Total Blocks Mined</span></div>
+                <div class="value"><span id="blocksTotal">N/A</span> <span class="smallText">(<span id="lastBlockFound">Never</span>)</span></div>
             </div>
         </div>
     </div>
@@ -21,109 +21,85 @@
                 <span class="fa fa-unlock-alt"></span>
             </div>
             <div class="content">
-                <div class="text">Maturity Requirement</div>
-                <div class="value"><span id="blocksMaturityCount"></span></div>
+                <div class="text"><span tkey="blocksMaturityCount">Maturity Requirement</span></div>
+                <div class="value"><span id="blocksMaturityCount">N/A</span></div>
             </div>
         </div>
     </div>
 
-    <!-- Efficiency -->
-    <div class="col-lg-3 col-sm-4">
-        <div class="infoBox hoverExpandEffect">
-            <div class="icon">
-                <span class="fa fa-line-chart"></span>
-            </div>
-            <div class="content">
-                <div class="text">Efficiency</div>
-                <div class="value"><span id="efficiency"></span></div>
-            </div>
-        </div>
-    </div>
-    
     <!-- Average Luck -->
     <div class="col-lg-3 col-sm-4">
         <div class="infoBox hoverExpandEffect">
             <div class="icon">
-                <span class="fa fa-line-chart"></span>
+                <span class="fa fa-chart-line"></span>
             </div>
             <div class="content">
-                <div class="text">Average Luck</div>
-                <div class="value"><span id="averageLuck"></span></div>
+                <div class="text"><span tkey="averageLuck">Average Luck</span></div>
+                <div class="value"><span id="averageLuck">N/A</span></div>
             </div>
         </div>
     </div>
     
+     <!-- Current Effort -->
+    <div class="col-lg-3 col-sm-4">
+        <div class="infoBox hoverExpandEffect">
+            <div class="icon">
+                <span class="fa fa-chart-line"></span>
+            </div>
+            <div class="content">
+                <div class="text"><span tkey="currentEffort">Current Effort</span></div>
+                <div class="value"><span id="currentEffort">N/A</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Chart -->
+<div id="blocksChart" class="card padding-15 padding-t-5 padding-b-5">
+    <h4 id="blocksChartTitle">Blocks found</h4>
+    <div class="chart" style="height:200px;">
+        <canvas id="blocksChartObj"></canvas>
+        <a class="chart-style"></a>
+    </div>
 </div>
 
 <!-- Report -->
-<div id="blocksReport" class="table-responsive">
-    <table class="table table-hover table-striped">
-        <thead>
-        <tr>
-            <th class="col1">Time Found</th>
-            <th class="col2">Reward</th>
-            <th class="col3">Height</th>
-            <th class="col4">Difficulty</th>
-            <th class="col5">Block Hash</th>
-            <th class="col6">Effort</th>
-            <th class="col7" title="How many more blocks network must mine before this block is matured">Status</th>
-        </tr>
-        </thead>
-        <tbody id="blocksReport_rows">
-        </tbody>
-    </table>
+<div class="card push-up-10">
+    <div id="blocksReport" class="table-responsive">
+        <table class="table table-hover table-striped">
+            <thead>
+            <tr>
+				<th class="col1"><span tkey="height">Height</span></th>
+                <th class="col2"><span tkey="timeFound">Time Found</span></th>
+                <th class="col3"><span tkey="reward">Reward</span></th>
+                <th class="col4"><span tkey="difficulty">Difficulty</span></th>
+                <th class="col5"><span tkey="blockHash">Block Hash</span></th>
+                <th class="col6"><span tkey="effort">Effort</span></th>
+                <th class="col7" title="How many more blocks network must mine before this block is matured"><span tkey="status">Status</span></th>
+            </tr>
+            </thead>
+            <tbody id="blocksReport_rows">
+            </tbody>
+        </table>
+    </div>
 </div>
 
-<p class="text-center">
-    <button type="button" class="btn btn-default" id="loadMoreBlocks">Load More</button>
+<p class="text-center push-up-10">
+    <button type="button" class="btn btn-default" id="loadMoreBlocks"><span tkey="loadMore">Load More</span></button>
 </p>
 
 <!-- Javascript -->
 <script>
-function formatLuck(difficulty, shares) {
-    // Only an approximation to reverse the calculations done in pool.js, because the shares with their respective times are not recorded in redis
-    // Approximation assumes equal pool hashrate for the whole round
-    // Could potentially be replaced by storing the sum of all job.difficulty in the redis db.
-    if (lastStats.config.slushMiningEnabled) {
-        // Uses integral calculus to calculate the average of a dynamic function
-        var accurateShares = 1/lastStats.config.blockTime * (  // 1/blockTime to get the average
-            shares * lastStats.config.weight * (                  // Basically calculates the 'area below the graph' between 0 and blockTime
-                1 - Math.pow( 
-                    Math.E, 
-                    ((- lastStats.config.blockTime) / lastStats.config.weight)  // blockTime is equal to the highest possible result of (dateNowSeconds - scoreTime)
-                )
-            )
-        );
-    }
-    else {
-        var accurateShares = shares;
-    }
-        
-    var percent = Math.round(accurateShares / difficulty * 100);
-    if(!percent){
-        return '<span class="luckGood">?</span>';
-    }
-    else if(percent <= 100){
-        return '<span class="luckGood">' + percent + '%</span>';
-    }
-    else if(percent >= 101 && percent <= 150){
-        return '<span class="luckMid">' + percent + '%</span>';
-    }
-    else{
-        return '<span class="luckBad">' + percent + '%</span>';
-    }    
-}
+// Hide blocks chart on load
+$('#blocksChart').hide();
 
-function formatEfficiency(percent) {
-    return percent + '%';
-}
-
-    
+// Update current page
 currentPage = {
     destroy: function(){
         if (xhrGetBlocks) xhrGetBlocks.abort();
     },
     update: function(){
+    	updateText('currentEffort', (lastStats.pool.roundHashes / lastStats.network.difficulty * 100).toFixed(1) + '%');
         updateText('blocksTotal', lastStats.pool.totalBlocks.toString());
         if (lastStats.pool.lastBlockFound) {
             var d = new Date(parseInt(lastStats.pool.lastBlockFound)).toISOString();
@@ -134,29 +110,91 @@ currentPage = {
         }
         updateText('blocksMaturityCount', lastStats.config.depth.toString());
 
-        $('#efficiency').html(formatEfficiency(lastStats.pool.efficiency));
         $('#averageLuck').html(formatLuck(lastStats.pool.totalDiff, lastStats.pool.totalShares));
 
-        renderBlocks(lastStats.pool.blocks);	
+        if (lastStats.charts.blocks) {
+            generateChart(lastStats.charts.blocks);
+        }
+        renderBlocks(lastStats.pool.blocks);
     }
 };
 
-var xhrGetBlocks;
-$('#loadMoreBlocks').click(function(){
-    if (xhrGetBlocks) xhrGetBlocks.abort();
-    xhrGetBlocks = $.ajax({
-        url: api + '/get_blocks',
+// Chart
+var displayedChart = false;
+function generateChart(data) {
+    if (displayedChart || !data || data === "undefined") return ;
+
+    var chartDays = lastStats.config.blocksChartDays || null;
+    var title = getTranslation('poolBlocks') ? getTranslation('poolBlocks') : 'Blocks found';
+    if (chartDays) {
+        if (chartDays === 1) title = getTranslation('blocksFoundLast24') ? getTranslation('blocksFoundLast24') : 'Blocks found in the last 24 hours';
+        else title = getTranslation('blocksFoundLastDays') ? getTranslation('blocksFoundLastDays') : 'Blocks found in the last {DAYS} days';
+        title = title.replace('{DAYS}', chartDays);
+    }
+    updateText('blocksChartTitle', title);
+
+    var labels = [];
+    var values = [];
+
+    for (var key in data) {
+        var label = key;
+        if (chartDays && chartDays === 1) {
+            var keyParts = key.split(' ');
+            label = keyParts[1].replace(':00', '');
+        }
+        labels.push(label);
+        values.push(data[key]);
+    }
+
+    var $chart = $('#blocksChartObj');
+    var bgcolor = null, bordercolor = null, borderwidth = null;
+    var colorelem = $chart.siblings('a.chart-style');
+    if (colorelem.length == 1) {
+        bgcolor = colorelem.css('background-color');
+        bordercolor = colorelem.css('border-left-color');
+        borderwidth = parseFloat(colorelem.css('width'));
+    }
+    if (bgcolor === null) bgcolor = 'rgba(3, 169, 244, .4)';
+    if (bordercolor === null) bordercolor = '#03a9f4';
+    if (borderwidth === null || isNaN(borderwidth)) borderwidth = 1;
+
+    var chart = new Chart(document.getElementById('blocksChartObj'), {
+        type: 'bar',
         data: {
-            height: $('#blocksReport_rows').children().last().data('height')
+            labels: labels,
+            datasets: [{
+                label: 'Blocks',
+                data: values,
+                fill: false,
+                backgroundColor: bgcolor,
+                borderColor: bordercolor,
+                borderWidth: borderwidth
+            }]
         },
-        dataType: 'json',
-        cache: 'false',
-        success: function(data){
-            renderBlocks(data);
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            legend: { display: false },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        userCallback: function(label, index, labels) {
+                            if (Math.floor(label) === label) return label;
+                        }
+                    }
+                }],
+            },
+            layout: {
+                padding: { top: 0, left: 0, right: 0, bottom: 0 }
+            }
         }
     });
-});
+    $chart.show();
+    displayedChart = true;
+}
 
+// Parse block data
 function parseBlock(height, serializedBlock){
     var parts = serializedBlock.split(':');
     var block = {
@@ -169,7 +207,7 @@ function parseBlock(height, serializedBlock){
         reward: parts[5]
     };
 
-    var toGo = lastStats.config.depth - (lastStats.network.height - block.height);
+    var toGo = lastStats.config.depth - (lastStats.network.height - block.height) + 1;
     if(toGo > 1){
         block.maturity = toGo + ' to go';
     } 
@@ -197,6 +235,7 @@ function parseBlock(height, serializedBlock){
     return block;
 }
 
+// Get block row element
 function getBlockRowElement(block, jsonString){        
     function formatBlockLink(hash){
         return '<a target="_blank" href="' + getBlockchainUrl(hash) + '">' + hash + '</a>';
@@ -220,13 +259,13 @@ function getBlockRowElement(block, jsonString){
         reward = "Waiting...";
     }
     else{
-        reward = getReadableCoins(block.reward, 4, true);
+        reward = getReadableCoins(block.reward, null, true);
     }
     
     var columns =
-        '<td class="col1">' + formatDate(block.time) + '</td>' +
-        '<td class="col2">' + reward + '</td>' +
-        '<td class="col3">' + block.height + '</td>' +
+    	'<td class="col1">' + block.height + '</td>' +
+        '<td class="col2">' + formatDate(block.time) + '</td>' +
+        '<td class="col3">' + reward + '</td>' +
         '<td class="col4">' + block.difficulty + '</td>' +
         '<td class="col5">' + formatBlockLink(block.hash) + '</td>' +
         '<td class="col6" title="' + block.shares + ' shares submitted">' + formatLuck(block.difficulty, block.shares) + '</td>' +
@@ -237,13 +276,14 @@ function getBlockRowElement(block, jsonString){
     return row;
 }
 
+// Render blocks
 function renderBlocks(blocksResults){
     var $blocksRows = $('#blocksReport_rows');
 
     for (var i = 0; i < blocksResults.length; i += 2){
         var block = parseBlock(blocksResults[i + 1], blocksResults[i]);
         var blockJson = JSON.stringify(block);
-        
+
         var existingRow = document.getElementById('blockRow' + block.height);
         if (existingRow && existingRow.getAttribute('data-json') !== blockJson){
             $(existingRow).replaceWith(getBlockRowElement(block, blockJson));
@@ -267,4 +307,21 @@ function renderBlocks(blocksResults){
         }
     }
 }
+
+// Load more blocks button
+var xhrGetBlocks;
+$('#loadMoreBlocks').click(function(){
+    if (xhrGetBlocks) xhrGetBlocks.abort();
+    xhrGetBlocks = $.ajax({
+        url: api + '/get_blocks',
+        data: {
+            height: $('#blocksReport_rows').children().last().data('height')
+        },
+        dataType: 'json',
+        cache: 'false',
+        success: function(data){
+            renderBlocks(data);
+        }
+    });
+});
 </script>

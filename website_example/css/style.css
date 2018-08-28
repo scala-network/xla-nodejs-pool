@@ -4,7 +4,7 @@
 
 body {  
   /*background-color: #f5f5f5;*/
-  background-color:#e2daf3;
+  background-color:#f3f2f5;
   font-family: 'Roboto', Helvetica, Arial, sans-serif;
   line-height: 1.428571429;
   color: #262626;
@@ -41,7 +41,18 @@ code {
   padding: 2px 10px;
   border-radius: 0;
 }
-
+.text-success{
+	color: #00C851;
+}
+.text-warning{
+	color:#ffbb33;
+}
+.text-danger{
+	color:#ff4444;
+}
+.text-info{
+	color:#ff4444;
+}
 .padding-5 { padding: 5px !important; }
 .padding-10 { padding: 10px !important; }
 .padding-15 { padding: 15px !important; }

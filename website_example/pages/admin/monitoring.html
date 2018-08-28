@@ -95,7 +95,7 @@ function monitoringInfoParse(data) {
     var monitoringWallet = {
         lastCheck: data.monitoring.wallet ? getCheckTime(data['monitoring'].wallet.lastCheck) || 'never' : 'never',
         lastStatus: data.monitoring.wallet ?  data['monitoring'].wallet.lastStatus || '' : '',
-        lastFail: data.monitoring.wallet ? getCheckTime(data['monitoring'].wallet.lastFail) || 'never' 'never',
+        lastFail: data.monitoring.wallet ? getCheckTime(data['monitoring'].wallet.lastFail) || 'never' : 'never',
         lastFailResponse: data.monitoring.wallet ?  data['monitoring'].wallet.lastFailResponse || ' ' : ' ',
         lastResponse: data.monitoring.wallet ?  data['monitoring'].wallet.lastResponse || ' ' : ' '
     };

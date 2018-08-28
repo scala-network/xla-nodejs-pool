@@ -1,11 +1,11 @@
 {
-    "name": "cryptonote-stellite-pool",
+    "name": "xtl-nodjes-pool",
     "version": "2.1.0",
     "license": "GPL-2.0",
-    "author": "@ahmyi",
+    "author": "@stellitecoin",
     "repository": {
         "type": "git",
-        "url": "https://github.com/ahmyi/cryptonote-stellite-pool.git"
+        "url": "https://github.com/stellitecoin/xtl-nodejs-pool.git"
     },
     "dependencies": {
         "async": "1",

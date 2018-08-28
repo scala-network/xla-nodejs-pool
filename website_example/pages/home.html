@@ -234,23 +234,23 @@ currentPage = {
         updateText('networkDifficulty', formatNumber(lastStats.network.difficulty.toString(), ' '));
         updateText('blockchainHeight', formatNumber(lastStats.network.height.toString(), ' '));
         
-        const poolLoad = lastStats.system.load[0] * 100 / lastStats.system.number_cores;
+        const poolLoad = parseFloat(lastStats.system.load[0] * 100 / lastStats.system.number_cores);
         
         updateText('poolLoad', (poolLoad).toFixed(2)+"%");
         
         const poolLoadIcon=$("#poolLoadIcon");
         poolLoadIcon.removeClass();
         poolLoadIcon.addClass("fas");
-        if(poolLoad < 5){
+        if(poolLoad < 5.00){
         	poolLoadIcon.addClass("fa-thermometer-empty");
         	poolLoadIcon.addClass("text-success");
-        }else if(poolLoad < 30){
+        }else if(poolLoad < 30.00){
         	poolLoadIcon.addClass("fa-thermometer-quarter");
         	poolLoadIcon.addClass("text-success");
-        }else if(poolLoad < 60){
+        }else if(poolLoad < 60.00){
         	poolLoadIcon.addClass("fa-thermometer-half");
         	poolLoadIcon.addClass("text-success");
-        }else if(poolLoad < 90){
+        }else if(poolLoad < 90.00){
         	poolLoadIcon.addClass("fa-thermometer-three-quarters");
         	poolLoadIcon.addClass("text-warning");
         }else{

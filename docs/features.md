@@ -5,7 +5,7 @@ Features
 * TCP (stratum-like) protocol for server-push based jobs
   * Compared to old HTTP protocol, this has a higher hash rate, lower network/CPU server load, lower orphan
     block percent, and less error prone
-* Support for Cryptonight (Original, Monero v7, Stellite v7), Cryptonight Light (Original, Aeon v7, IPBC) and Cryptonight Heavy (Sumokoin) algorithms.
+* Support for Cryptonight Stellite v7 algorithms.
 * IP banning to prevent low-diff share attacks
 * Socket flooding detection
 * Share trust algorithm to reduce share validation hashing CPU load
@@ -59,7 +59,5 @@ Features
 * An easily extendable, responsive, light-weight front-end using API to display data
 * Onishin's [keepalive function](https://github.com/perl5577/cpuminer-multi/commit/0c8aedb)
 * Support for slush mining system (disabled by default)
-* E-Mail Notifications on worker connected, disconnected (timeout) or banned (support MailGun, SMTP and Sendmail)
-* Telegram channel notifications when a block is unlocked
 * Top 10 miners report
 * Multilingual user interface

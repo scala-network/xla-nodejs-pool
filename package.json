@@ -1,6 +1,6 @@
 {
     "name": "cryptonote-stellite-pool",
-    "version": "1.2.10.5",
+    "version": "2.1.0",
     "license": "GPL-2.0",
     "author": "@ahmyi",
     "repository": {
@@ -12,12 +12,10 @@
         "base58-native": "*",
         "bignum": "*",
         "cli-color": "*",
-	"cryptonight-hashing": "git+https://github.com/hayzamjs/node-cryptonight-hashing.git",
+        "args-parser": "*",
+        "cryptonight-hashing": "git+https://github.com/hayzamjs/node-cryptonight-hashing.git",
         "cryptonote-util": "git+https://github.com/ahmyi/xtlpool-cryptonote-util.git",
         "dateformat": "*",
-        "mailgun.js": "*",
-        "nodemailer": "2.7.2",
-        "nodemailer-sendmail-transport": "*",
         "redis": "*"
     },
     "engines": {

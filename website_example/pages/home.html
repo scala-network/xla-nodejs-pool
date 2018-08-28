@@ -4,7 +4,7 @@
 <div id="poolStats" class="row">
 
     <!-- Pool Hash Rate -->
-    <div class="col-lg-3 col-sm-4">
+    <div class="col-lg-2 col-md-3 col-sm-4">
         <div class="infoBox hoverExpandEffect">
             <div class="icon">
                 <span class="fa fa-heartbeat"></span>
@@ -17,7 +17,7 @@
     </div>
     
     <!-- Blocks Found -->
-    <div class="col-lg-3 col-sm-4">
+    <div class="col-lg-2 col-md-3 col-sm-4">
         <div class="infoBox hoverExpandEffect">
             <div class="icon">
                 <span class="fa fa-cubes"></span>
@@ -30,7 +30,7 @@
     </div>
     
     <!-- Blocks Found Every -->
-    <div class="col-lg-3 col-sm-4">
+    <div class="col-lg-2 col-md-3 col-sm-4">
         <div class="infoBox hoverExpandEffect">
             <div class="icon">
                 <span class="fa fa-history"></span>
@@ -43,7 +43,7 @@
     </div>
         
     <!-- Current Effort -->
-    <div class="col-lg-3 col-sm-4">
+    <div class="col-lg-2 col-md-3 col-sm-4">
         <div class="infoBox hoverExpandEffect">
             <div class="icon">
                 <span class="fa fa-chart-line"></span>
@@ -56,7 +56,7 @@
     </div>
     
     <!-- Network Hash Rate -->
-    <div class="col-lg-3 col-sm-4">
+    <div class="col-lg-2 col-md-3 col-sm-4">
         <div class="infoBox hoverExpandEffect">
             <div class="icon">
                 <span class="fa fa-sitemap"></span>
@@ -69,7 +69,7 @@
     </div>
     
     <!-- Difficulty -->
-    <div class="col-lg-3 col-sm-4">
+    <div class="col-lg-2 col-md-3 col-sm-4">
         <div class="infoBox hoverExpandEffect">
             <div class="icon">
                 <span class="fa fa-unlock-alt"></span>
@@ -82,7 +82,7 @@
     </div>
     
     <!-- Blockchain Height -->
-    <div class="col-lg-3 col-sm-4">
+    <div class="col-lg-2 col-md-3 col-sm-4">
         <div class="infoBox hoverExpandEffect">
             <div class="icon">
                 <span class="fa fa-bars"></span>
@@ -95,7 +95,7 @@
     </div>
 
     <!-- Last Reward -->
-    <div class="col-lg-3 col-sm-4">
+    <div class="col-lg-2 col-md-3 col-sm-4">
         <div class="infoBox hoverExpandEffect">
             <div class="icon">
                 <span class="fa fa-hand-holding-usd"></span>
@@ -108,7 +108,7 @@
     </div>
 
     <!-- Connected Miners -->
-    <div class="col-lg-3 col-sm-4">
+    <div class="col-lg-2 col-md-3 col-sm-4">
         <div class="infoBox hoverExpandEffect">
             <div class="icon">
                 <span class="fa fa-users"></span>
@@ -121,7 +121,7 @@
     </div>
         
     <!-- Pool Fee -->
-    <div class="col-lg-3 col-sm-4">
+    <div class="col-lg-2 col-md-3 col-sm-4">
         <div class="infoBox hoverExpandEffect">
             <div class="icon">
                 <span class="fa fa-people-carry"></span>
@@ -134,7 +134,7 @@
     </div>
     
     <!-- Minimum Payout -->
-    <div class="col-lg-3 col-sm-4">
+    <div class="col-lg-2 col-md-3 col-sm-4">
         <div class="infoBox hoverExpandEffect">
             <div class="icon">
                 <span id='poolLoadIcon'></span>
@@ -147,17 +147,7 @@
     </div>
             
     <!-- Payment Interval -->
-    <div class="col-lg-3 col-sm-4">
-        <div class="infoBox hoverExpandEffect">
-            <div class="icon">
-                <span class="fa fa-clock"></span>
-            </div>
-            <div class="content">
-                <div class="text"><span tkey="paymentsInterval">Payment Interval</span></div>
-                <div class="value"><span id="paymentsInterval">N/A</span></div>
-            </div>
-        </div>
-    </div>
+	
 
     <!-- Last Hash -->
     <div class="col-sm-12">
@@ -170,6 +160,35 @@
         </div>
     </div>
     
+    <div class='col-sm-12'>
+    	<!-- Mining Profit Calculator -->
+<div id="miningProfitCalc">
+    <div id="calcHashHolder">
+        <div class="input-group">
+            <input class="form-control" id="calcHashRate" tplaceholder="enterYourHashrate" placeholder="Enter Your Hash Rate" type="number">
+            <div class="input-group-btn">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" id="calcHashDropdown">
+                    <span id="calcHashUnit" data-mul="1">KH/s</span> <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right" role="menu" id="calcHashUnits">
+                    <li><a href="#" data-mul="0">H/s</a></li>
+                    <li><a href="#" data-mul="1">KH/s</a></li>
+                    <li><a href="#" data-mul="2">MH/s</a></li>
+                </ul>
+            </div>
+            <span class="input-group-addon">=</span>            
+        </div>
+		<div id="calcHashResultsHolder">
+			<div id="calcHashAmount">
+				<span id="calcHashAmount1">0.00 XTL</span>
+			</div>
+			<div id="calcHashPeriod">
+				<span tkey="perDay">per day</span>
+			</div>
+		</div>
+    </div>
+</div>
+    </div>
 </div>
 
 <!-- Pool Charts -->
@@ -209,7 +228,26 @@
                 <a class="chart-style"></a>
             </div> 
         </div> 
-    </div>    
+    </div>  
+    
+    <div class="col-sm-3 poolChart">
+        <div class="card">
+            <h4><span tkey="priceIn">Price in</span> <span id="priceChartCurrency">USD</span></h4>
+            <div class="chart">
+                <canvas id="chart_price"></canvas>
+                <a class="chart-style"></a>
+            </div>
+        </div>        
+    </div>
+    <div class="col-sm-3 poolChart">
+        <div class="card">
+            <h4><span tkey="hashPer">Hash/</span><span id="profitChartCurrency">USD</span> <span data-toggle="tooltip" data-placement="top" data-original-title="Reward * Rate / Difficulty"><i class="fa fa-question-circle"></i></span></h4>
+            <div class="chart">
+                <canvas id="chart_profit"></canvas>
+                <a class="chart-style"></a>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- Javascript -->
@@ -241,16 +279,16 @@ currentPage = {
         const poolLoadIcon=$("#poolLoadIcon");
         poolLoadIcon.removeClass();
         poolLoadIcon.addClass("fas");
-        if(poolLoad < 5.00){
+        if(poolLoad < 25.00){
         	poolLoadIcon.addClass("fa-thermometer-empty");
-        	poolLoadIcon.addClass("text-success");
-        }else if(poolLoad < 30.00){
+        	poolLoadIcon.addClass("text-info");
+        }else if(poolLoad < 45.00){
         	poolLoadIcon.addClass("fa-thermometer-quarter");
         	poolLoadIcon.addClass("text-success");
-        }else if(poolLoad < 60.00){
+        }else if(poolLoad < 75.00){
         	poolLoadIcon.addClass("fa-thermometer-half");
         	poolLoadIcon.addClass("text-success");
-        }else if(poolLoad < 90.00){
+        }else if(poolLoad < 95.00){
         	poolLoadIcon.addClass("fa-thermometer-three-quarters");
         	poolLoadIcon.addClass("text-warning");
         }else{
@@ -305,6 +343,8 @@ currentPage = {
             createCharts();
             chartsInitialized = true;
         }
+        
+        calcEstimateProfit();
     }
 };
 
@@ -319,12 +359,14 @@ $('#networkLastBlockFound,#poolLastBlockFound').timeago();
 function createCharts() {
     if (!lastStats || !lastStats.charts) return ;
     var data = lastStats.charts;
-
+	
     var graphData = {
         hashrate: getGraphData(data.hashrate),
         diff: getGraphData(data.difficulty),
         miners: getGraphData(data.miners),
-        workers: getGraphData(data.workers)
+        workers: getGraphData(data.workers),
+        price: getGraphData(data.price)
+        
     };
 
     for (var graphType in graphData) {
@@ -397,6 +439,26 @@ function createCharts() {
             $chart.closest('.poolChart').show();
         }
     }
+}
+
+// Calculate current estimation
+function calcEstimateProfit(){
+    try {
+        var rateUnit = Math.pow(1000,parseInt($('#calcHashUnit').data('mul')));
+        var hashRate = parseFloat($('#calcHashRate').val()) * rateUnit;
+
+        var profit = (hashRate * 86400 / lastStats.network.difficulty) * lastStats.lastblock.reward;
+        
+        if (profit) {
+            updateText('calcHashAmount1', getReadableCoins(profit));
+            // updateText('calcHashAmount2', getCurrencyPriceText(profit));
+            return;
+        }
+    } catch(e){ 
+    	console.log(e);
+    }
+    updateText('calcHashAmount1', '');
+    // updateText('calcHashAmount2', '');
 }
 
 // Get chart data

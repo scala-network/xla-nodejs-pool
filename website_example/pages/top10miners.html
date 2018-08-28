@@ -1,43 +1,69 @@
 <!-- Top 10 miners -->
-<h3><span tkey="top10miners">Top 10 miners</span></h3>
-<div class="card">
-    <div id="top10miners" class="table-responsive">
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th class="col1 sort">#</th>
-                <th class="col2 sort"><span tkey="miner">Miner</span></th>
-                <th class="col3 sort"><span tkey="hashRate">Hash Rate</span></th>
-                <th class="col4 sort"><span tkey="donationLevel">Donation Level</span></th>
-                <th class="col5 sort"><span tkey="lastShare">Last Share Submitted</span></th>
-                <th class="col6 sort"><span tkey="totalHashes">Total Hashes Submitted</span></th>
-                <th class="col7 sort"><span tkey="blocksFound">Blocks Found</span></th>
-            </tr>
-            </thead>
-            <tbody id="top10miners_rows">
-            </tbody>
-        </table>
-    </div>
+<div class='row'>
+	<div class='col-md-12'>
+		<h3><span tkey="currentBlockMiners">Current Block Miners</span></h3>
+		<div class="card">
+		    <div id="currentBlockMiners" class="table-responsive">
+		        <table class="table table-striped">
+		            <thead>
+		            <tr>
+		                <th class="col1 sort">#</th>
+		                <th class="col2 sort"><span tkey="miner">Miner</span></th>
+		                <th class="col3 sort"><span tkey="hashRate">Hash Rate</span></th>
+		                <th class="col4 sort"><span tkey="totalHashes">Total Hashes Submitted</span></th>
+						<th class="col5 sort"><span tkey="roundShare">Round Shares</span></th>
+		            </tr>
+		            </thead>
+		            <tbody id="currentBlockMiners_rows"></tbody>
+		        </table>
+		    </div>
+		</div>
+	</div>
+	<div class='col-md-6'>
+		<h3><span tkey="top10miners">Top 10 miners</span></h3>
+		<div class="card">
+		    <div id="top10miners" class="table-responsive">
+		        <table class="table table-striped">
+		            <thead>
+		            <tr>
+		                <th class="col1 sort">#</th>
+		                <th class="col2 sort"><span tkey="miner">Miner</span></th>
+		                <th class="col3 sort"><span tkey="hashRate">Hash Rate</span></th>
+		                <th class="col4 sort"><span tkey="lastShare">Last Share Submitted</span></th>
+		                <th class="col5 sort"><span tkey="totalHashes">Total Hashes Submitted</span></th>
+		                <th class="col6 sort"><span tkey="blocksFound">Blocks Found</span></th>
+		            </tr>
+		            </thead>
+		            <tbody id="top10miners_rows"></tbody>
+		        </table>
+		    </div>
+		</div>
+	</div>
+	
+	<div class='col-md-6'>
+		<h3><span tkey="top10donators">Top 10 donators</span></h3>
+		<div class="card">
+		    <div id="top10donators" class="table-responsive">
+		        <table class="table table-striped">
+		            <thead>
+		            <tr>
+		                <th class="col1 sort">#</th>
+		                <th class="col2 sort"><span tkey="miner">Miner</span></th>
+		                <th class="col3 sort"><span tkey="donations">Donations</span></th>
+		                <th class="col4 sort"><span tkey="donationLevel">Donation Level</span></th>
+		                <th class="col5 sort"><span tkey="lastShare">Last Share Submitted</span></th>
+		            </tr>
+		            </thead>
+		            <tbody id="top10donators_rows">
+		            </tbody>
+		        </table>
+		    </div>
+		</div>
+	</div>
 </div>
 
-<h3><span tkey="top10donators">Top 10 donators</span></h3>
-<div class="card">
-    <div id="top10donators" class="table-responsive">
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th class="col1 sort">#</th>
-                <th class="col2 sort"><span tkey="miner">Miner</span></th>
-                <th class="col3 sort"><span tkey="donations">Donations</span></th>
-                <th class="col4 sort"><span tkey="donationLevel">Donation Level</span></th>
-                <th class="col5 sort"><span tkey="lastShare">Last Share Submitted</span></th>
-            </tr>
-            </thead>
-            <tbody id="top10donators_rows">
-            </tbody>
-        </table>
-    </div>
-</div>
+
+
 
 <!-- Javascript -->
 <script>
@@ -65,10 +91,9 @@ function getMinerCells(position, data){
     return '<td class="col1" data-sort="' + position + '">' + position + '</td>' +
            '<td class="col2" data-sort="' + miner + '">' + miner + '</td>' +
            '<td class="col3" data-sort="' + hashrate + '">' + getReadableHashRateString(hashrate) + '/sec</td>' +
-           '<td class="col4" data-sort="' + donateLvl + '">' + Math.round(donateLvl * 100) / 100. + '% ' + getDonationSmiley(donateLvl) + '</td>' +
-           '<td class="col5" data-sort="' + lastShare + '">' + (lastShare ? $.timeago(new Date(parseInt(lastShare) * 1000).toISOString()) : 'Never') + '</td>' +
-           '<td class="col6" data-sort="' + hashes + '">' + hashes + '</td>' +
-           '<td class="col7" data-sort="' + blocksFound + '">' + blocksFound + '</td>';
+           '<td class="col4" data-sort="' + lastShare + '">' + (lastShare ? $.timeago(new Date(parseInt(lastShare) * 1000).toISOString()) : 'Never') + '</td>' +
+           '<td class="col5" data-sort="' + hashes + '">' + hashes + '</td>' +
+           '<td class="col6 text-center" data-sort="' + blocksFound + '">' + blocksFound + '</td>';
 }
 
 // Get donator cells

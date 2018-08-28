@@ -6,7 +6,7 @@ High performance Node.js (with native C addons) mining pool for Stellite coin. C
 
 #### Table of Contents
 * [Features](docs/features.md)
-* [Usage](docs/usage.md)
+* [Usage](docs/usages.md)
 * [Credits](#credits)
 * [License](#license)
 

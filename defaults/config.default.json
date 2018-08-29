@@ -163,6 +163,10 @@
     },
     
     "charts": {
+	"blocks":{
+		"enabled":true,
+		"days":30
+	},
         "pool": {
         	"difficulty": {
                 "enabled": true,

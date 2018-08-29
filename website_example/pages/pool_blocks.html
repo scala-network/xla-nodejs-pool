@@ -60,7 +60,7 @@
                 <span class="fa fa-chart-line"></span>
             </div>
             <div class="content">
-                <div class="text"><span tkey="averageBlockDay">Average Block Per Day</span></div>
+                <div class="text"><span tkey="averageBlockDay">Avg Block Per Day</span></div>
                 <div class="value"><span id="averageBlockDay">N/A</span></div>
             </div>
         </div>
@@ -73,7 +73,7 @@
                 <span class="fa fa-chart-line"></span>
             </div>
             <div class="content">
-                <div class="text"><span tkey="averageIncomeDay">Average Income Per Day</span></div>
+                <div class="text"><span tkey="averageIncomeDay">Avg Reward Per Day</span></div>
                 <div class="value"><span id="averageIncomeDay">N/A</span></div>
             </div>
         </div>
@@ -247,14 +247,11 @@ function parseBlock(height, serializedBlock){
     else if(toGo <= 0){
         block.maturity = "<i class='fa fa-unlock-alt'></i>";
     }
-    var incomeCount = 0;
-    var incomeValue = 0;
+
     switch (block.orphaned){
         case '0':
             block.status = 'unlocked';
             block.maturity = "<i class='fa fa-unlock-alt'></i>";
-            incomeCount++;
-            incomeValue+=parseFloat(block.reward);
             break;
        case '1':
             block.status = 'orphaned';
@@ -265,7 +262,6 @@ function parseBlock(height, serializedBlock){
             block.status = 'pending';
             break;
     }
-    updateText("averageIncomeDay",parseFloat(getReadableCoins(incomeValue/incomeCount, null, true)).toFixed(2));
     return block;
 }
 
@@ -313,11 +309,11 @@ function getBlockRowElement(block, jsonString){
 // Render blocks
 function renderBlocks(blocksResults){
     var $blocksRows = $('#blocksReport_rows');
-
+	var incomes = {};
     for (var i = 0; i < blocksResults.length; i += 2){
         var block = parseBlock(blocksResults[i + 1], blocksResults[i]);
         var blockJson = JSON.stringify(block);
-
+		
         var existingRow = document.getElementById('blockRow' + block.height);
         if (existingRow && existingRow.getAttribute('data-json') !== blockJson){
             $(existingRow).replaceWith(getBlockRowElement(block, blockJson));
@@ -339,7 +335,24 @@ function renderBlocks(blocksResults){
                 $blocksRows.append(blockElement);
             }
         }
+        
+        if(block.orphaned == 0){
+        	var d = new Date(1000*block.time);
+        	var dIndex = d.getDate()+"-"+d.getMonth()+'-'+d.getFullYear();
+        	if(!incomes[dIndex]){
+        		incomes[dIndex] = 0;
+        	}
+        	incomes[dIndex]+=parseFloat(block.reward);
+        }
     }
+    var incomeValue = 0;
+    var incomeCount = 0;
+    for(var dae in incomes){
+    	var v = incomes[dae];
+    	incomeCount++;
+    	incomeValue+=v;
+    }
+    updateText("averageIncomeDay",parseFloat(getReadableCoins(incomeValue/incomeCount, null, true)).toFixed(2)+" XTL");
 }
 
 // Load more blocks button

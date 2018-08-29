@@ -193,7 +193,7 @@
 
 <!-- Pool Charts -->
 <div class="row">
-    <div class="col-sm-3 poolChart">
+    <div class="col-sm-4 poolChart">
         <div class="card">
             <h4><span tkey="hashRate">Hash Rate</span></h4>
             <div class="chart">
@@ -202,7 +202,7 @@
             </div> 
         </div>        
     </div>
-    <div class="col-sm-3 poolChart">
+    <div class="col-sm-4 poolChart">
         <div class="card">
             <h4><span tkey="difficulty">Difficulty</span></h4>
             <div class="chart">
@@ -211,7 +211,7 @@
             </div> 
         </div>
     </div>
-    <div class="col-sm-3 poolChart">
+    <div class="col-sm-4 poolChart">
         <div class="card">
             <h4><span tkey="miners">Miners</span></h4>
             <div class="chart">
@@ -220,7 +220,7 @@
             </div> 
         </div> 
     </div>    
-    <div class="col-sm-3 poolChart">
+    <div class="col-sm-4 poolChart">
         <div class="card">
             <h4><span tkey="workers">Workers</span></h4>
             <div class="chart">
@@ -229,8 +229,16 @@
             </div> 
         </div> 
     </div>  
-    
-    <div class="col-sm-3 poolChart">
+    <div class="col-sm-4 poolChart">
+        <div class="card">
+            <h4><span tkey="blockEfforts">Block Efforts</span></h4>
+            <div class="chart">
+                <canvas id="chart_effort"></canvas>
+                <a class="chart-style"></a>
+            </div>
+        </div>        
+    </div>
+    <div class="col-sm-4 poolChart">
         <div class="card">
             <h4><span tkey="priceIn">Price in</span> <span id="priceChartCurrency">USD</span></h4>
             <div class="chart">
@@ -239,9 +247,12 @@
             </div>
         </div>        
     </div>
-    <div class="col-sm-3 poolChart">
+    <div class="col-sm-4 poolChart">
         <div class="card">
-            <h4><span tkey="hashPer">Hash/</span><span id="profitChartCurrency">USD</span> <span data-toggle="tooltip" data-placement="top" data-original-title="Reward * Rate / Difficulty"><i class="fa fa-question-circle"></i></span></h4>
+            <h4><span tkey="hashPer">Hash/</span>
+            <span id="profitChartCurrency">USD</span> 
+            <span data-toggle="tooltip" data-placement="top" data-original-title="Reward * Rate / Difficulty"><i class="fa fa-question-circle"></i></span>
+            </h4>
             <div class="chart">
                 <canvas id="chart_profit"></canvas>
                 <a class="chart-style"></a>
@@ -357,16 +368,31 @@ $('#networkLastBlockFound,#poolLastBlockFound').timeago();
 
 // Create charts
 function createCharts() {
-    if (!lastStats || !lastStats.charts) return ;
+    if (!lastStats || !lastStats.charts){
+    	 return ;	
+    }
     var data = lastStats.charts;
+    
+	var blocks = [];
 	
+    for(var i = 0;i<lastStats.pool.blocks.length;i+=2){
+		var block = lastStats.pool.blocks[i].split(':');
+		var difficulty = parseInt(block[2]);
+		var shares = parseInt(block[3]);
+
+		var percent = Math.round(shares / difficulty * 100);
+		var s = [];
+		s.push(parseInt(block[1]));
+		s.push(percent);
+		blocks.push(s);
+	}
     var graphData = {
         hashrate: getGraphData(data.hashrate),
         diff: getGraphData(data.difficulty),
         miners: getGraphData(data.miners),
         workers: getGraphData(data.workers),
-        price: getGraphData(data.price)
-        
+        price: getGraphData(data.price),
+        effort: getGraphData(blocks.reverse())
     };
 
     for (var graphType in graphData) {

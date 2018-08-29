@@ -2,7 +2,7 @@
 <div id="blocksStats" class="row">
 
     <!-- Total Blocks Mined -->
-    <div class="col-lg-3 col-sm-4">
+    <div class="col-lg-2 col-md-3 col-sm-4">
         <div class="infoBox hoverExpandEffect">
             <div class="icon">
                 <span class="fa fa-cubes"></span>
@@ -15,7 +15,7 @@
     </div>
 
     <!-- Maturity Depth Requirement -->
-    <div class="col-lg-3 col-sm-4">
+    <div class="col-lg-2 col-md-3 col-sm-4">
         <div class="infoBox hoverExpandEffect">
             <div class="icon">
                 <span class="fa fa-unlock-alt"></span>
@@ -28,7 +28,7 @@
     </div>
 
     <!-- Average Luck -->
-    <div class="col-lg-3 col-sm-4">
+    <div class="col-lg-2 col-md-3 col-sm-4">
         <div class="infoBox hoverExpandEffect">
             <div class="icon">
                 <span class="fa fa-chart-line"></span>
@@ -41,7 +41,7 @@
     </div>
     
      <!-- Current Effort -->
-    <div class="col-lg-3 col-sm-4">
+    <div class="col-lg-2 col-md-3 col-sm-4">
         <div class="infoBox hoverExpandEffect">
             <div class="icon">
                 <span class="fa fa-chart-line"></span>
@@ -49,6 +49,32 @@
             <div class="content">
                 <div class="text"><span tkey="currentEffort">Current Effort</span></div>
                 <div class="value"><span id="currentEffort">N/A</span></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Avg Block -->
+    <div class="col-lg-2 col-md-3 col-sm-4">
+        <div class="infoBox hoverExpandEffect">
+            <div class="icon">
+                <span class="fa fa-chart-line"></span>
+            </div>
+            <div class="content">
+                <div class="text"><span tkey="averageBlockDay">Average Block Per Day</span></div>
+                <div class="value"><span id="averageBlockDay">N/A</span></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Average Income -->
+    <div class="col-lg-2 col-md-3 col-sm-4">
+        <div class="infoBox hoverExpandEffect">
+            <div class="icon">
+                <span class="fa fa-chart-line"></span>
+            </div>
+            <div class="content">
+                <div class="text"><span tkey="averageIncomeDay">Average Income Per Day</span></div>
+                <div class="value"><span id="averageIncomeDay">N/A</span></div>
             </div>
         </div>
     </div>
@@ -116,6 +142,7 @@ currentPage = {
             generateChart(lastStats.charts.blocks);
         }
         renderBlocks(lastStats.pool.blocks);
+        
     }
 };
 
@@ -135,7 +162,7 @@ function generateChart(data) {
 
     var labels = [];
     var values = [];
-
+	var avgDay = 0;
     for (var key in data) {
         var label = key;
         if (chartDays && chartDays === 1) {
@@ -143,9 +170,12 @@ function generateChart(data) {
             label = keyParts[1].replace(':00', '');
         }
         labels.push(label);
-        values.push(data[key]);
+        var value = data[key];
+        values.push(value);
+        avgDay+=value;
     }
-
+    avgDay = Math.round(avgDay / lastStats.config.blocksChartDays);
+	updateText('averageBlockDay',avgDay);
     var $chart = $('#blocksChartObj');
     var bgcolor = null, bordercolor = null, borderwidth = null;
     var colorelem = $chart.siblings('a.chart-style');
@@ -217,11 +247,14 @@ function parseBlock(height, serializedBlock){
     else if(toGo <= 0){
         block.maturity = "<i class='fa fa-unlock-alt'></i>";
     }
-        
+    var incomeCount = 0;
+    var incomeValue = 0;
     switch (block.orphaned){
         case '0':
             block.status = 'unlocked';
             block.maturity = "<i class='fa fa-unlock-alt'></i>";
+            incomeCount++;
+            incomeValue+=parseFloat(block.reward);
             break;
        case '1':
             block.status = 'orphaned';
@@ -232,6 +265,7 @@ function parseBlock(height, serializedBlock){
             block.status = 'pending';
             break;
     }
+    updateText("averageIncomeDay",parseFloat(getReadableCoins(incomeValue/incomeCount, null, true)).toFixed(2));
     return block;
 }
 
@@ -265,7 +299,7 @@ function getBlockRowElement(block, jsonString){
     var columns =
     	'<td class="col1">' + block.height + '</td>' +
         '<td class="col2">' + formatDate(block.time) + '</td>' +
-        '<td class="col3">' + reward + '</td>' +
+        '<td class="col3">' + parseFloat(reward).toFixed(2) + '</td>' +
         '<td class="col4">' + block.difficulty + '</td>' +
         '<td class="col5">' + formatBlockLink(block.hash) + '</td>' +
         '<td class="col6" title="' + block.shares + ' shares submitted">' + formatLuck(block.difficulty, block.shares) + '</td>' +

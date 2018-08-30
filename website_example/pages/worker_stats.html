@@ -584,8 +584,7 @@ function renderPayments(paymentsResults){
         var existingSummary = document.getElementById('summaryRow' + summaryData.date);
         if (existingSummary && existingSummary.getAttribute('data-json') !== summaryJson){
             $(existingSummary).replaceWith(summaryElement);
-        }
-        else if (!existingSummary){
+        } else if (!existingSummary){
             var inserted = false;
             var rows = $paymentsRows.children().get();
             for (var f = 0; f < rows.length; f++) {

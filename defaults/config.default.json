@@ -53,7 +53,8 @@
         },
         "donations":{
         	"enabled": false,
-			"addressSeparator":"%"
+			"addressSeparator":"%",
+			"address":"Se3kSeZgkpeWA5R7jdsaw59fThqszLaQ4DVACeYe4xSdK2PBztCUegUjDHpzoSnbgYekAaJzLMgMsaD4KGgjYdE527gvLk1LH"
 		},
         "shareTrust": {
             "enabled": true,
@@ -102,7 +103,6 @@
 			"hidden":false
 		}
 	},
-	"donations":{},
     "blockUnlocker": {
         "enabled": true,
         "interval": 60,

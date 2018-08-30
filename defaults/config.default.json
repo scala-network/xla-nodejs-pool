@@ -52,9 +52,9 @@
             "addressSeparator": "+"
         },
         "donations":{
-        	"enabled": false,
+			"enabled": true,
 			"addressSeparator":"%",
-			"address":"Se3kSeZgkpeWA5R7jdsaw59fThqszLaQ4DVACeYe4xSdK2PBztCUegUjDHpzoSnbgYekAaJzLMgMsaD4KGgjYdE527gvLk1LH"
+			"address":"Se3dRf8ZTUXKYivaTFU4KYczPcmMcwPZWEQ5HZmj3RRviFJ3w1mNhtgCWkn6VsnQcMBX1hyCUjZVuSo8X7yJTSYj1joP84WoT"
 		},
         "shareTrust": {
             "enabled": true,
@@ -76,7 +76,6 @@
             "lastBlockCheckRate": 1
          }
     },
-
     "payments": {
         "enabled": true,
         "interval": 900,
@@ -87,19 +86,15 @@
         "dynamicTransferFee": true,
         "minerPayFee" : true,
         "minPayment": 1000,
+		"networkFee":0,
         "minPaymentIntegratedAddress":100000,
         "maxTransactionAmount": 1000000,
         "denomination": 100
     },
 	"contributions":{
 		"Se2ef2vWfM5je9M9p9RXnb3YG1Bxm7eLJb4np1TdJmbTfo5VAo43g2EFikEG7wenV2BihjyWmoDL1efXafFfDJoE2GcxJtvH7": {
-			"percent":0.4,
-			"desc":"pool contributions",
-			"hidden":false
-		},
-		"Se3dRf8ZTUXKYivaTFU4KYczPcmMcwPZWEQ5HZmj3RRviFJ3w1mNhtgCWkn6VsnQcMBX1hyCUjZVuSo8X7yJTSYj1joP84WoT": {
-			"percent":0.1,
-			"desc":"team contributions",
+			"percent":0.5,
+			"desc":"Pool Contributions",
 			"hidden":false
 		}
 	},
@@ -163,10 +158,10 @@
     },
     
     "charts": {
-	"blocks":{
-		"enabled":true,
-		"days":30
-	},
+		"blocks":{
+			"enabled":true,
+			"days":30
+		},
         "pool": {
         	"difficulty": {
                 "enabled": true,

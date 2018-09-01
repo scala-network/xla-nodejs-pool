@@ -35,6 +35,28 @@ Copy the `default/config.default.json` file to `config.json` then overview each 
 | poolServer.ssl.ca | The SSL certificate authority chain for SSL-enabled ports. |
 | poolServer.ports | The pool server mining ports. |
 
+### Payment ID
+
+| Parameter | Details |
+| --------- | ------- |
+| poolServer.paymentId.enabled | Enable the payment id separator |
+| poolServer.paymentId.separator | Character separator between _address_ and _paymentID_. |
+
+### Fixed Difficulty
+
+| Parameter | Details |
+| --------- | ------- |
+| poolServer.fixedDiff.enabled | Enable the payment id separator |
+| poolServer.fixedDiff.separator | Character separator between _address_ and _fixed_difficulty_. |
+
+### Donation Address
+
+| Parameter | Details |
+| --------- | ------- |
+| poolServer.donations.enabled | Enable the payment id separator |
+| poolServer.donations.separator | Character separator between _address_ and _donation_level_. |
+| poolServer.donations.address | Address for donars to be donate to. |
+
 For each mining ports you can set the following parameters:
 
 | Parameter | Details |
@@ -58,12 +80,6 @@ Variable difficulty is a feature that will automatically adjust difficulty for i
 | varDiff.variancePercent | Allow time to vary this % from target without retargeting. |
 | varDiff.maxJump | Limit diff percent increase/decrease in a single retargeting. |
 
-### Fixed difficulty
-
-| Parameter | Details |
-| --------- | ------- |
-| fixedDiff.enabled| Enable fixed difficulty. |
-| fixedDiff.separator | Character separator between _address_ and _difficulty_. |
 
 ### Share trust
 Feature to trust share difficulties from miners which can significantly reduce CPU load.
@@ -124,29 +140,6 @@ Module that monitors the submitted block maturities and manages rounds. Confirme
 | blockUnlocker.poolFee | The pool fee. |
 | blockUnlocker.devDonation | The developper donation. Thanks for supporting me! |
 | blockUnlocker.networkFee | The network/Governance fee (used by some coins like Loki). |
-
-
-### Payment ID
-
-| Parameter | Details |
-| --------- | ------- |
-| poolServer.paymentId.enabled | Enable the payment id separator |
-| poolServer.paymentId.separator | Character separator between _address_ and _paymentID_. |
-
-### Fixed Difficulty
-
-| Parameter | Details |
-| --------- | ------- |
-| poolServer.fixedDiff.enabled | Enable the payment id separator |
-| poolServer.fixedDiff.separator | Character separator between _address_ and _fixed_difficulty_. |
-
-### Donation Address
-
-| Parameter | Details |
-| --------- | ------- |
-| poolServer.donations.enabled | Enable the payment id separator |
-| poolServer.donations.separator | Character separator between _address_ and _donation_level_. |
-| poolServer.donations.address | Address for donars to be donate to. |
 
 ### Application Programming Interface (API)
 AJAX API used for front-end website

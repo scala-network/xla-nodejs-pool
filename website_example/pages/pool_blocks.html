@@ -365,6 +365,7 @@ function renderBlocks(blocksResults){
 	const summaryTR = "<tr style='font-weight:900;text-align:center;background:#e9dff1;' id='sum%ID%'>%TD%</tr>";
 	const summaryTD = "<td colspan='7' style='background:#e9dff1 !important;'>%DATE% we have mined %BLOCK% block(s) total reward of %REWARD% XTL</td>";
 	var blockCount =-1;
+	var blockElementSet = [];
     for (var i = 0; i < blocksResults.length; i += 2){
     	
         var block = parseBlock(blocksResults[i + 1], blocksResults[i]);
@@ -395,6 +396,12 @@ function renderBlocks(blocksResults){
     			sumRow.innerHTML = td;
     		}else{
 	    		$blocksRows.append(summaryTR.replace("%TD%",td).replace("%ID%",sumID));
+	    		
+	    		for(iii in blockElementSet){
+	    			$blocksRows.append(blockElementSet[iii]);	
+	    		}
+	    		
+	    		blockElementSet = [];
     		}
         	
         	blockCount=0;
@@ -419,15 +426,10 @@ function renderBlocks(blocksResults){
                 }
             }
             if (!inserted){
-                $blocksRows.append(blockElement);
+            	blockElementSet.push(blockElement);
+                // $blocksRows.append(blockElement);
             }
         }
-        
-        
-		
-        
-                        
-        
     }
     var incomeValue = 0;
     var incomeCount = 0;

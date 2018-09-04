@@ -68,7 +68,7 @@
         <div class="menu-list">
             <ul id="menu-content" class="menu-content collapsed out">
         
-                <li><a class="hot_link" href="index.html#home.html">
+                <li><a class="hot_link" href="index.html#">
                     <i class="fa fa-home"></i> <span tkey="dashboard">Dashboard</span>
                 </a></li>
 
@@ -2856,8 +2856,12 @@ Setting the categories to "" prevent any logs to be outputed.</li>
         <span tkey="poweredBy">Powered by</span> <a target="_blank" href="https://github.com/stellitecoin/xtl-nodejs-pool"><i class="fab fa-github"></i>&nbsp;xtl-nodejs-pool</a>
         <span id="poolVersion"></span>
         <span class="hidden-xs"><span tkey="openSource">open sourced under the</span> <a href="http://www.gnu.org/licenses/gpl-2.0.html">GPL</a></span>
-    </div>
+	    <span>Sound by </span><a target='_blank' href="https://notificationsounds.com">Notification Sounds</a>
+	    </div>
 </footer>
+<div style='display:none'>
+	 <audio id='blockAudioAlert' src="audio/gentle-alarm.ogg" type="audio/ogg" preload="auto"></audio>
+</div>
 
 <!-- Javascript -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
@@ -2870,8 +2874,8 @@ Setting the categories to "" prevent any logs to be outputed.</li>
 </script>
 <script src="config.js"></script>
 <script src="lang/languages.js"></script>
-<script src="js/common.js?build=738da2978a23f168b968a590aa850a96"></script>
-<script src="js/script.js?build=738da2978a23f168b968a590aa850a96"></script>
+<script src="js/common.js"></script>
+<script src='js/script.js?v1.4.1'></script>
 <script src="js/custom.js"></script>
 <script>
 	$(document).ready(function(){

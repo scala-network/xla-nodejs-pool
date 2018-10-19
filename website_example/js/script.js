@@ -31,7 +31,7 @@ function updateLiveStats(data) {
     }
     updateIndex();
     if (currentPage) currentPage.update();
-+    if(previousBlock === false){ //Just Started
+    if(previousBlock === false){ //Just Started
 	previousBlock = parseInt(data.pool.blocks[1]);
     }else if(previousBlock !==  parseInt(data.pool.blocks[1])){ // We found new block
     	playSound();

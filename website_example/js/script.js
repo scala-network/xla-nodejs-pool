@@ -1,6 +1,6 @@
 // Store last pool statistics
 var lastStats;
-var previousBlock = 0;
+var previousBlock = false;
 // Get current miner address
 function getCurrentAddress() {
     var urlWalletAddress = location.search.split('wallet=')[1] || 0;
@@ -31,9 +31,8 @@ function updateLiveStats(data) {
     }
     updateIndex();
     if (currentPage) currentPage.update();
-    if(previousBlock === 0){ //Just Started
-    	previousBlock = parseInt(data.pool.blocks[1]);
-    	playSound();
++    if(previousBlock === false){ //Just Started
+	previousBlock = parseInt(data.pool.blocks[1]);
     }else if(previousBlock !==  parseInt(data.pool.blocks[1])){ // We found new block
     	playSound();
     	previousBlock = parseInt(data.pool.blocks[1]);

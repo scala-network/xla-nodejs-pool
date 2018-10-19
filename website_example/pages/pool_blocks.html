@@ -324,7 +324,7 @@ function parseBlock(height, serializedBlock){
             break;
     }
     if(typeof(block.miner) === 'undefined'){
-	miner: "xxxxxxx....xxxxxx";
+	block.miner= "xxxxxxx....xxxxxx";
     }
     return block;
 }

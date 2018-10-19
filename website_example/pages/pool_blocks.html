@@ -292,10 +292,9 @@ function parseBlock(height, serializedBlock){
         difficulty: parseInt(parts[2]),
         shares: parseInt(parts[3]),
         orphaned: parts[4],
-        reward: parts[5]
+        reward: parts[5],
+	miners: (parts.length >= 6)?:parts[6]:"xxxxxxx....xxxxxx";
     };
-    
-    block.miner = (parts.length > 6 && block.reward !== parts[parts.length-1])?parts[parts.length-1]:"xxxx...xxxx";
 
     var toGo = lastStats.config.depth - (lastStats.network.height - block.height) + 1;
     if(toGo > 1){
@@ -319,6 +318,7 @@ function parseBlock(height, serializedBlock){
             block.reward = 0;
             break;
         default:
+            block.miner = parts[5];
             block.status = 'pending';
             block.reward = false;
             break;

@@ -293,7 +293,7 @@ function parseBlock(height, serializedBlock){
         shares: parseInt(parts[3]),
         orphaned: parts[4],
         reward: parts[5],
-	miner: (parts.length >= 6)?:parts[6]:"xxxxxxx....xxxxxx"
+	miner: (parts.length >= 6)?parts[6]:"xxxxxxx....xxxxxx"
     };
 
     var toGo = lastStats.config.depth - (lastStats.network.height - block.height) + 1;

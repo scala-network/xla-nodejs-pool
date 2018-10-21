@@ -175,7 +175,8 @@ function fetchAddressStats(longpoll){
             }
             updateText('yourHashes', (data.stats.hashes || 0).toString());
             updateText('yourPaid', getReadableCoins(data.stats.paid));
-            updateText('yourPendingBalance', getReadableCoins(data.stats.balance));
+
+            updateText('yourPendingBalance', getReadableCoins(data.stats.balance,5));
 
             var userRoundHashes = parseInt(data.stats.roundHashes || 0);
             var poolRoundHashes = parseInt(lastStats.pool.roundHashes || 0);
@@ -204,7 +205,7 @@ function fetchAddressStats(longpoll){
             var payoutEstimate = Math.round(lastReward * (score_pct / 100));
             if (transferFee) payoutEstimate = payoutEstimate - transferFee;
 	    if (payoutEstimate < 0) payoutEstimate = 0;
-	    updateText('yourPayoutEstimate', getReadableCoins(payoutEstimate));
+	    updateText('yourPayoutEstimate', getReadableCoins(payoutEstimate,5));
 	    
             renderPayments(data.payments);
 	    

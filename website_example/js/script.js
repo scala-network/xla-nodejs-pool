@@ -31,12 +31,13 @@ function updateLiveStats(data) {
     }
     updateIndex();
     if (currentPage) currentPage.update();
-    if(previousBlock === false){ //Just Started
-	previousBlock = parseInt(data.pool.blocks[1]);
-    }else if(previousBlock !==  parseInt(data.pool.blocks[1])){ // We found new block
-    	playSound();
-    	previousBlock = parseInt(data.pool.blocks[1]);
-    } 
+    if(data.pool.blocks.length > 0){
+    
+        if(previousBlock !== false && previousBlock !==  parseInt(data.pool.blocks[1]) ){ // We found new block
+            playSound();
+        }
+    previousBlock = parseInt(data.pool.blocks[1]);
+    }
 }
 
 // Update global informations

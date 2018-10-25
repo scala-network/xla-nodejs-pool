@@ -36,11 +36,15 @@
         <h4><i class="fa fa-money"></i>&nbsp; <span tkey="payments">Payments</span></h4>
         <div class="row card">
             <div class="col-sm-6 stats push-up-10">
-                <div><i class="fa fa-bank"></i> <span tkey="pendingBalance">Pending Balance</span>: <span id="yourPendingBalance"></span></div>
-                <div><i class="fa fa-money"></i> <span tkey="totalPaid">Total Paid</span>: <span id="yourPaid"></span></div>
-                <div><i class="fa fa-star"></i> <span>Round contribution</span>: <span id="yourRoundShareProportion"></span>%
-                    <span id="slush_round_info"> (shares), <span id="yourRoundScoreProportion"></span>% (<a target="_blank" href="#payments">score</a>)</span></span></div>
-                <div><i class="fa fa-money"></i> <span tkey="payoutEstimate">Current Payout Estimate</span>: <span id="yourPayoutEstimate"></span></div>
+                <div><i class="fas fa-money-check-alt"></i> <span tkey="pendingBalance">Pending Balance</span>: <span id="yourPendingBalance"></span></div>
+                <div><i class="fas fa-money-bill-alt"></i> <span tkey="totalPaid">Total Paid</span>: <span id="yourPaid"></span></div>
+                <div><i class="fas fa-star"></i> <span>Donation Level</span>: <span id="yourDonationLevel"></span>%</div>
+                <div><i class="fas fa-star"></i> <span>Minimum Payout Level</span>: <span id="yourMinPayout"></span></div>                
+                <div><i class="fas fa-money-bill-alt"></i> <span tkey="payoutEstimate">Current Payout Estimate</span>: <span id="yourPayoutEstimate"></span></div>
+                <div><i class="fas fa-star"></i> 
+                    <span>Round Share</span>: <span id="yourRoundShareProportion"></span>% <span id="slush_round_info"> (shares), <span id="yourRoundScoreProportion"></span>% (<a target="_blank" href="#payments">score</a>)</span></div>
+
+                <div><a href="#settings" class="btn btn-info"><i class="fas fa-cog"></i>&nbsp;<span tkey="settings">Settings</span></a></div>
             </div>
             <div class="col-sm-6 userChart">
                 <div class="chart">
@@ -85,7 +89,8 @@
                     <th class="col1"><span tkey="timeSent">Time Sent</span></th>
                     <th class="col2"><span tkey="transactionHash">Transaction Hash</span></th>
                     <th class="col3"><span tkey="amount">Amount</span></th>
-                    <th class="col4"><span tkey="mixin">Mixin</span></th>
+                    <th class="col4"><span tkey="fee">Fee</span></th>
+                    <th class="col5"><span tkey="mixin">Mixin</span></th>
                 </tr>
                 </thead>
                 <tbody id="paymentsReport_rows">
@@ -174,7 +179,11 @@ function fetchAddressStats(longpoll){
             }
             updateText('yourHashes', (data.stats.hashes || 0).toString());
             updateText('yourPaid', getReadableCoins(data.stats.paid));
-            updateText('yourPendingBalance', getReadableCoins(data.stats.balance));
+
+            updateText('yourPendingBalance', getReadableCoins(data.stats.balance,5));
+            updateText('yourMinPayout', getReadableCoins(data.stats.minPayoutLevel));
+            updateText('yourDonationLevel', data.stats.donation_level||0);
+            
 
             var userRoundHashes = parseInt(data.stats.roundHashes || 0);
             var poolRoundHashes = parseInt(lastStats.pool.roundHashes || 0);
@@ -190,20 +199,21 @@ function fetchAddressStats(longpoll){
                 }
                 poolFee += totalDonation;
             }
-	    var transferFee = lastStats.config.transferFee;
-	    
+	        var transferFee = lastStats.config.dynamicTransfer ? 0:lastStats.config.transferFee;
+	        
             var share_pct = userRoundHashes * 100 / poolRoundHashes;
             var score_pct = userRoundScore * 100 / poolRoundScore;
-            updateText('yourRoundShareProportion', Math.round(share_pct * 1000) / 1000);
+            
+            updateText('yourRoundShareProportion', parseFloat(share_pct).toFixed(5));
             updateText('yourRoundScoreProportion', Math.round(score_pct * 1000) / 1000);
             if (!lastStats.config.slushMiningEnabled) {
                 $('#slush_round_info').hide();
             }
 
-            var payoutEstimate = Math.round(lastReward * (score_pct / 100));
+            var payoutEstimate = getReadableCoins(lastReward * score_pct,5,true);
             if (transferFee) payoutEstimate = payoutEstimate - transferFee;
-	    if (payoutEstimate < 0) payoutEstimate = 0;
-	    updateText('yourPayoutEstimate', getReadableCoins(payoutEstimate));
+    	    if (payoutEstimate < 0) payoutEstimate = 0;
+    	    updateText('yourPayoutEstimate', getReadableCoins(payoutEstimate,5));
 	    
             renderPayments(data.payments);
 	    
@@ -511,10 +521,12 @@ function getPaymentRowElement(payment, jsonString){
 
 // Get payment cells
 function getPaymentCells(payment){
+    
     return '<td class="col1">' + formatDate(payment.time) + '</td>' +
            '<td class="col2">' + formatPaymentLink(payment.hash) + '</td>' +
-           '<td class="col3">' + getReadableCoins(payment.amount) + '</td>' +
-           '<td class="col4">' + payment.mixin + '</td>';
+           '<td class="col3">' + getReadableCoins(payment.amount,2,false) + '</td>' +
+           '<td class="col4">' + getReadableCoins(payment.fee,2,false) + '</td>' +
+           '<td class="col5">' + payment.mixin + '</td>';
 }
 
 // Get summary row element
@@ -537,7 +549,7 @@ function getSummaryCells(summary){
     text = text.replace(/%DATE%/g, summary.date);
     text = text.replace(/%COUNT%/g, summary.count);
     text = text.replace(/%AMOUNT%/g, getReadableCoins(summary.amount));
-    return '<td colspan="4">' + text + '</td>';
+    return '<td colspan="5">' + text + '</td>';
 }
 
 // Render payments
@@ -621,3 +633,4 @@ $('#loadMorePayments').click(function(){
     });
 });
 </script>
+

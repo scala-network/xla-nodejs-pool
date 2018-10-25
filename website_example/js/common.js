@@ -74,10 +74,17 @@ function routePage(loadedCallback) {
     }
 
     $('.hot_link').parent().removeClass('active');
-    var $link = $('a.hot_link[href="' + (window.location.hash || '#') + '"]');
+    var page;
+    if(window.location.hash !== '#settings'){
+        var $link = $('a.hot_link[href="' + (window.location.hash || '#') + '"]');    
+        $link.parent().addClass('active');
+        page = $link.data('page');
+    } else {
+        page = "settings.html";
+    }
     
-    $link.parent().addClass('active');
-    var page = $link.data('page');
+    
+
     
     loadTranslations();
 
@@ -224,7 +231,7 @@ function getCoinDecimalPlaces() {
 // Get readable coins
 function getReadableCoins(coins, digits, withoutSymbol){
     var coinDecimalPlaces = getCoinDecimalPlaces();
-    var amount = parseFloat((parseInt(coins || 0) / lastStats.config.coinUnits).toFixed(digits || coinDecimalPlaces));
+    var amount = parseFloat((parseFloat(coins || 0) / lastStats.config.coinUnits).toFixed(digits || coinDecimalPlaces));
     return amount.toString() + (withoutSymbol ? '' : (' ' + lastStats.config.symbol));
 }
 

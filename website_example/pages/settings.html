@@ -107,10 +107,10 @@ function setPayoutLevel(address, ip, level) {
         dataType: 'json',
         cache: 'false'
     }).done(function(data){
-        if (data.status == 'done') {
+        if (data.status == 'success') {
             showSuccess('minerPayoutSet', 'Done! Your minimum payout level was set');
         } else {
-            showError('error', 'Error:', data.status);
+            showError('error', 'Error:', data.message);
         }
     });
 }

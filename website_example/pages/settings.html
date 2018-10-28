@@ -138,14 +138,15 @@ function resetDonationLevel(address, ip) {
         cache: 'false'
     }).done(function(data){
         if (data.status == 'success') {
-            showSuccess('minerPayoutSet', 'Done! Your donation level is reset to 0%');
+            showSuccess('minerResetDonation', 'Done! Your donation level is reset to 0%');
         } else {
             showError('error', 'Error:', data.message);
         }
     });
 }
 
-$('#resetDonationButton').click(function(){
+$('#resetDonationButton').click(function(e){
+    e.preventDefault();
     var address = $('#yourAddress').val().trim();
     if (!address || address == '') {
         showError('noMinerAddress', 'No miner address specified');
@@ -163,7 +164,8 @@ $('#resetDonationButton').click(function(){
 });
 
 // Handle click on Set button
-$('#payoutSetButton').click(function(){
+$('#payoutSetButton').click(function(e){
+    e.preventDefault();
     var address = $('#yourAddress').val().trim();
     if (!address || address == '') {
         showError('noMinerAddress', 'No miner address specified');

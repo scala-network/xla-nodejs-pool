@@ -23,17 +23,18 @@ var fs = require('fs');
 var cluster = require('cluster');
 var os = require('os');
 
-const args = require("args-parser")(process.argv);
 
 // Initialize log system
 var logSystem = 'init';
 /**
  * Load pool configuration
  **/
+const args = require("args-parser")(process.argv);
+
 global.config = require('./lib/bootstrap')(args.config || 'config.json');
 
 require('./lib/logger.js');
-const upgrade = require("./lib/bootstraps/upgrade");
+
 
 global.redisClient = require('redis').createClient((function(){
 	var options = { 
@@ -69,8 +70,7 @@ global.redisClient = require('redis').createClient((function(){
 })());
 
 global.redisClient.on('error', function (err) {
-    // log('error', logSystem, "Error on redis with code : %s",[err.code]);
-    log('error', logSystem, "Error on redis : %j",[err]);
+    log('error', logSystem, "Error on redis with code : %s",[err.code]);
 });
 
 // Load pool modules
@@ -323,8 +323,7 @@ log('info', logSystem, 'Starting Stellite Node.JS pool version %s', [global.vers
         } else if (version < 2.6){
             log('error', logSystem, "You're using redis version %s the minimum required version is 2.6. Follow the damn usage instructions...", [versionString]);
         } else {
-
-        	upgrade(function(){});
+        	init();
         }
     });
 })();

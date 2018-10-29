@@ -182,7 +182,7 @@ function fetchAddressStats(longpoll){
 
             updateText('yourPendingBalance', getReadableCoins(data.stats.balance,5));
             updateText('yourMinPayout', getReadableCoins(data.stats.minPayoutLevel));
-            updateText('yourDonationLevel', Math.round(data.stats.donation_level)||0);
+            updateText('yourDonationLevel', Math.round(data.stats.donation_level)   ||0);
             console.log(data.stats.donate_level);
 
             var userRoundHashes = parseInt(data.stats.roundHashes || 0);

@@ -33,7 +33,7 @@ var logSystem = 'init';
 global.config = require('./lib/bootstrap')(args.config || 'config.json');
 
 require('./lib/logger.js');
-
+const upgrade = require("./lib/bootstraps/upgrade");
 
 global.redisClient = require('redis').createClient((function(){
 	var options = { 
@@ -322,7 +322,7 @@ log('info', logSystem, 'Starting Stellite Node.JS pool version %s', [global.vers
         } else if (version < 2.6){
             log('error', logSystem, "You're using redis version %s the minimum required version is 2.6. Follow the damn usage instructions...", [versionString]);
         } else {
-        	require("./lib/bootstraps/upgrade")(function(){});
+        	upgrade(function(){});
         }
     });
 })();

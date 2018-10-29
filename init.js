@@ -69,7 +69,8 @@ global.redisClient = require('redis').createClient((function(){
 })());
 
 global.redisClient.on('error', function (err) {
-    log('error', logSystem, "Error on redis with code : %s",[err.code]);
+    // log('error', logSystem, "Error on redis with code : %s",[err.code]);
+    log('error', logSystem, "Error on redis : %j",[err]);
 });
 
 // Load pool modules
@@ -322,6 +323,7 @@ log('info', logSystem, 'Starting Stellite Node.JS pool version %s', [global.vers
         } else if (version < 2.6){
             log('error', logSystem, "You're using redis version %s the minimum required version is 2.6. Follow the damn usage instructions...", [versionString]);
         } else {
+
         	upgrade(function(){});
         }
     });

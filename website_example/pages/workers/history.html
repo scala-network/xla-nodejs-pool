@@ -35,12 +35,14 @@
         <table class="table table-hover table-striped">
             <thead>
             <tr>
-		        <th class="text-center"><span tkey="height">Height</span></th>
+		<th class="text-center"><span tkey="height">Height</span></th>
                 <th class="text-center"><span tkey="timeFound">Time Found</span></th>
-                <th class="text-center"><span tkey="reward">Reward</span></th>
+                <th class="text-center"><span tkey="share">Share</span></th>
                 <th class="text-center"><span tkey="difficulty">Difficulty</span></th>
                 <th class="text-center"><span tkey="blockHash">Block Hash</span></th>
-                <th class="text-center"><span tkey="effort">Effort</span></th>
+		<th class="text-center"><span tkey="score">Score</span></th>
+		<th class="text-center"><span tkey="totalScore">Total Score</span></th>
+                <th class="text-center"><span tkey="effort">Percent</span></th>
             </tr>
             </thead>
             <tbody id="blocksReport_rows">
@@ -134,19 +136,20 @@ function getBlockRowElement(block){
 
     var row = document.createElement('tr');
     row.setAttribute('id', id);
-    row.setAttribute('title', block.status);
-    row.className = block.status;
+
                 
     var reward = parseFloat(getReadableCoins(block.reward, null, true)).toFixed(2);
-    
+    var percent = parseFloat(block.shares / block.totalShares).toFixed(5);
     var columns =
     	'<td class="col1">' + block.height + '</td>' +
         '<td class="col2">' + formatDate(block.time) + '</td>' +
         '<td class="col3">' + reward + '</td>' +
+	'<td class="col3">' + block.share + '</td>' +
         '<td class="col4">' + block.difficulty + '</td>' +
         '<td class="col5">' + formatBlockLink(block.hash) + '</td>' +
-        '<td class="col6" title="' + block.shares + ' shares submitted">' + formatLuck(block.difficulty, block.shares) + '</td>';
-
+	'<td class="col5">' + block.score + '</td>' +
+	'<td class="col5">' + block.totalScore + '</td>' +
+        '<td class="col6" title="' + percent + ' shares">' + percent + '</td>';
     row.innerHTML = columns;
     
     return row;

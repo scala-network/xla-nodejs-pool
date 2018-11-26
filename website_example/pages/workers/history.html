@@ -37,7 +37,7 @@
             <tr>
 		<th class="text-center"><span tkey="height">Height</span></th>
                 <th class="text-center"><span tkey="timeFound">Time Found</span></th>
-                <th class="text-center"><span tkey="share">Share</span></th>
+                <th class="text-center"><span tkey="reward">Reward</span></th>
                 <th class="text-center"><span tkey="difficulty">Difficulty</span></th>
                 <th class="text-center"><span tkey="blockHash">Block Hash</span></th>
 		<th class="text-center"><span tkey="score">Score</span></th>
@@ -144,7 +144,6 @@ function getBlockRowElement(block){
     	'<td class="col1">' + block.height + '</td>' +
         '<td class="col2">' + formatDate(block.time) + '</td>' +
         '<td class="col3">' + reward + '</td>' +
-	'<td class="col3">' + block.share + '</td>' +
         '<td class="col4">' + block.difficulty + '</td>' +
         '<td class="col5">' + formatBlockLink(block.hash) + '</td>' +
 	'<td class="col5">' + block.score + '</td>' +

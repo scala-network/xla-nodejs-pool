@@ -13,8 +13,8 @@
         "bignum": "*",
         "cli-color": "*",
         "args-parser": "*",
- 	"cryptonight-hashing": "git+https://github.com/hayzamjs/node-cryptonight-hashing.git",
-	"cryptonote-util": "git+https://github.com/ahmyi/xtlpool-cryptonote-util.git#v9",
+        "cryptonight-hashing": "git+https://github.com/hayzamjs/node-cryptonight-hashing.git",
+        "cryptonote-util": "git+https://github.com/ahmyi/xtlpool-cryptonote-util.git#v9",
         "dateformat": "*",
         "redis": "*"
     },
@@ -25,9 +25,9 @@
         "jest": "^23.6.0"
     },
     "scripts": {
-	    "test": "jest"
-	},
-	"jest": {
-		"testRegex": "tests/.*\\.js$"
-	}
+        "test": "jest"
+    },
+    "jest": {
+        "testRegex": "tests/.*\\.js$"
+    }
 }
